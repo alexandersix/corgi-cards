@@ -44,9 +44,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function buyerAuctions(): HasMany
+    {
+        return $this->hasMany(Auction::class, 'buyer_id');
+    }
+
     public function cards(): HasMany
     {
         return $this->hasMany(Card::class);
+    }
+
+    public function sellerAuctions(): HasMany
+    {
+        return $this->hasMany(Auction::class, 'seller_id');
     }
 
     /**

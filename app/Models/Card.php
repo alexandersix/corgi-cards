@@ -6,6 +6,7 @@ use App\Enums\CardStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Card extends Model
 {
@@ -26,6 +27,11 @@ class Card extends Model
     protected $casts = [
         'status' => CardStatus::class,
     ];
+
+    public function auctions(): HasMany
+    {
+        return $this->hasMany(Auction::class);
+    }
 
     public function user(): BelongsTo
     {
