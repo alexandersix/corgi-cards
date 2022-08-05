@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\Card;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
@@ -24,9 +25,11 @@ class AuctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Card $card)
     {
-        //
+        return view('auction.create', [
+            'card' => $card,
+        ]);
     }
 
     /**
@@ -37,7 +40,16 @@ class AuctionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $auction = Auction::create([
+            'card_id' => $request->input('card_id'),
+            'seller_id' => $request->input('seller_id'),
+            'current_bid' => $request->input('current_bid') * 100,
+            'buyout_price' => $request->input('buyout_price') * 100,
+            'ends_at' => $request->input('ends_at'),
+        ]);
+
+        // TODO: Return with flash message
+        return redirect(route('auction.index'));
     }
 
     /**
