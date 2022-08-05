@@ -17,6 +17,15 @@
                             <div class="px-4 py-3 sm:p-4">
                                 <img class="rounded-lg mb-2" src="{{$card->cover_image}}" alt="A picture of {{$card->name}}" />
                                 <p>{{ $card->description }}</p>
+
+                                <h4 class="font-bold text mb-1 mt-3">Card Stats</h4>
+                                <div class="space-y-2">
+                                    <p><span class="font-semibold">Cuteness:</span> {{ $card->cuteness }}</p>
+                                    <p><span class="font-semibold">Playfulness:</span> {{ $card->playfulness }}</p>
+                                    <p><span class="font-semibold">Loudness</span> {{ $card->loudness }}</p>
+                                    <p><span class="font-semibold">Smartness</span> {{ $card->smartness }}</p>
+                                </div>
+
                             </div>
                         </div>
                         <div class="px-4 py-4 sm:px-4">
