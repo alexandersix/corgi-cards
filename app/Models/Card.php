@@ -21,7 +21,7 @@ class Card extends Model
         'cuteness',
         'playfulness',
         'loudness',
-        'intelligence',
+        'smartness',
     ];
 
     protected $casts = [

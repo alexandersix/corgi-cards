@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('cuteness')->default(0);
             $table->unsignedInteger('playfulness')->default(0);
             $table->unsignedInteger('loudness')->default(0);
-            $table->unsignedInteger('ingelligence')->default(0);
+            $table->unsignedInteger('smartness')->default(0);
             $table->timestamps();
         });
     }
