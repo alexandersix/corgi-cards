@@ -18,12 +18,20 @@
                                 <img class="rounded-lg mb-2" src="{{$auction->card->cover_image}}" alt="A picture of {{$auction->card->name}}" />
                                 <p>{{ $auction->card->description }}</p>
 
-                                <h4 class="font-bold text mb-1 mt-3">Card Stats</h4>
-                                <div class="space-y-2">
+                                <h4 class="font-bold text mb-1 mt-6">Card Stats</h4>
+                                <div class="space-y-2 pb-6">
                                     <p><span class="font-semibold">Cuteness:</span> {{ $auction->card->cuteness }}</p>
                                     <p><span class="font-semibold">Playfulness:</span> {{ $auction->card->playfulness }}</p>
                                     <p><span class="font-semibold">Loudness</span> {{ $auction->card->loudness }}</p>
                                     <p><span class="font-semibold">Smartness</span> {{ $auction->card->smartness }}</p>
+                                </div>
+
+                                <h4 class="font-bold text mb-1 mt-3">Auction Details</h4>
+                                <div class="space-y-2 mb-6">
+                                    <p><span class="font-semibold">Seller:</span> {{ $auction->seller->name }}</p>
+                                    <p><span class="font-semibold">Current Bid:</span> ${{ $auction->displayCurrentBid }}</p>
+                                    <p><span class="font-semibold">Buyout Price:</span> ${{ $auction->displayBuyoutPrice }}</p>
+                                    <p><span class="font-semibold">Ends At:</span> {{ $auction->ends_at->toDayDateTimeString() }}</p>
                                 </div>
 
                             </div>

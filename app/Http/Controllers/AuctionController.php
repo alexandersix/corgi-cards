@@ -15,7 +15,7 @@ class AuctionController extends Controller
     public function index()
     {
         return view('auction.index', [
-            'auctions' => Auction::with('card')->get(),
+            'auctions' => Auction::with(['buyer', 'card', 'seller'])->get(),
         ]);
     }
 

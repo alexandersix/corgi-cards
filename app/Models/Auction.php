@@ -21,6 +21,11 @@ class Auction extends Model
         'ends_at'
     ];
 
+    protected $casts = [
+        'sold_at' => 'datetime',
+        'ends_at' => 'datetime',
+    ];
+
     public function buyer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'buyer_id');
@@ -34,5 +39,20 @@ class Auction extends Model
     public function seller(): BelongsTo
     {
         return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function getDisplayCurrentBidAttribute(): string
+    {
+        return (string) round($this->current_bid / 100, 2);
+    }
+
+    public function getDisplayBuyoutPriceAttribute(): string
+    {
+        return (string) round($this->buyout_price / 100, 2);
+    }
+
+    public function getDisplaySellingPriceAttribute(): string
+    {
+        return (string) round($this->selling_price / 100, 2);
     }
 }
