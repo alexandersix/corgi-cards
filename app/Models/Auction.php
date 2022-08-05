@@ -18,7 +18,7 @@ class Auction extends Model
         'buyout_price',
         'selling_price',
         'sold_at',
-        'ends_at'
+        'ends_at',
     ];
 
     protected $casts = [

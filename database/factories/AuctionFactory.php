@@ -29,7 +29,7 @@ class AuctionFactory extends Factory
                     ->withLoudness()
                     ->withSmartness()
                     ->create([
-                        'user_id' => $attributes['seller_id']
+                        'user_id' => $attributes['seller_id'],
                     ])->id;
             },
             'seller_id' => User::factory(),

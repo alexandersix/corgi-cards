@@ -71,7 +71,7 @@ class CardFactory extends Factory
                 'description' => $description ?? fake()->paragraph(),
             ];
         });
-    } 
+    }
 
     public function withStatus(?CardStatus $status = null): static
     {
@@ -86,7 +86,7 @@ class CardFactory extends Factory
     {
         return $this->state(function () use ($score) {
             return [
-                'cuteness' => $score ?? fake()->numberBetween(0, 100)
+                'cuteness' => $score ?? fake()->numberBetween(0, 100),
             ];
         });
     }
@@ -95,7 +95,7 @@ class CardFactory extends Factory
     {
         return $this->state(function () use ($score) {
             return [
-                'playfulness' => $score ?? fake()->numberBetween(0, 100)
+                'playfulness' => $score ?? fake()->numberBetween(0, 100),
             ];
         });
     }
@@ -104,7 +104,7 @@ class CardFactory extends Factory
     {
         return $this->state(function () use ($score) {
             return [
-                'loudness' => $score ?? fake()->numberBetween(0, 100)
+                'loudness' => $score ?? fake()->numberBetween(0, 100),
             ];
         });
     }
@@ -113,7 +113,7 @@ class CardFactory extends Factory
     {
         return $this->state(function () use ($score) {
             return [
-                'smartness' => $score ?? fake()->numberBetween(0, 100)
+                'smartness' => $score ?? fake()->numberBetween(0, 100),
             ];
         });
     }

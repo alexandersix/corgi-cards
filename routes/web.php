@@ -19,8 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [CardController::class, 'index'])->name('dashboard');
     Route::get('/cards/{card}', [CardController::class, 'show'])->name('card.show');
 
