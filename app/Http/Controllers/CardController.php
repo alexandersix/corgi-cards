@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CardController extends Controller
 {
@@ -15,8 +15,15 @@ class CardController extends Controller
      */
     public function index()
     {
+        $availableCards = Card::query()
+            ->where('user_id', auth()->id())
+            ->whereDoesntHave('latestAuction', function (Builder $query) {
+                $query->whereNull('sold_at');
+            })
+            ->get();
+
         return view('dashboard', [
-            'cards' => Auth::user()->cards,
+            'cards' => $availableCards,
         ]);
     }
 
