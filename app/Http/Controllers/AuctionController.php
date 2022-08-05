@@ -16,7 +16,7 @@ class AuctionController extends Controller
     public function index()
     {
         return view('auction.index', [
-            'auctions' => Auction::with(['buyer', 'card', 'seller'])->paginate(6),
+            'auctions' => Auction::with(['buyer', 'card', 'seller'])->orderByDesc('created_at')->paginate(6),
         ]);
     }
 
@@ -40,6 +40,15 @@ class AuctionController extends Controller
      */
     public function store(Request $request)
     {
+        $hasOngoingAuction = Auction::query()
+            ->where('card_id', $request->input('card_id'))
+            ->whereNull('sold_at')
+            ->exists();
+
+        if ($hasOngoingAuction) {
+            return redirect(route('auction.index'))->with('error', 'That card is already up for auction!');
+        }
+
         $auction = Auction::create([
             'card_id' => $request->input('card_id'),
             'seller_id' => $request->input('seller_id'),

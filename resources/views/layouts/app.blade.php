@@ -23,6 +23,12 @@
                 </div>
             @endif
 
+            @if (Session::has('error'))
+                <div class="flex justify-center items-center py-3 px-6 bg-red-200 text-red-800">
+                    <p>{{ Session::get('error') }}</p>
+                </div>
+            @endif
+
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
