@@ -2,6 +2,7 @@
 
 use App\Models\Card;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('buyout_price')->nullable();
             $table->unsignedInteger('selling_price')->nullable();
             $table->dateTime('sold_at')->nullable();
+            $table->dateTime('ends_at')->default(Carbon::now()->addMinutes(5));
             $table->timestamps();
         });
     }
