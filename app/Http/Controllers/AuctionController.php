@@ -48,8 +48,7 @@ class AuctionController extends Controller
             'ends_at' => $request->input('ends_at'),
         ]);
 
-        // TODO: Return with flash message
-        return redirect(route('auction.index'));
+        return redirect(route('auction.index'))->with('success', 'Auction started successfully.');
     }
 
     /**

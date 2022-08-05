@@ -17,6 +17,12 @@
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
+            @if (Session::has('success'))
+                <div class="flex justify-center items-center py-3 px-6 bg-green-200 text-green-800">
+                    <p>{{ Session::get('success') }}</p>
+                </div>
+            @endif
+
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
