@@ -25,6 +25,16 @@ class CardFactory extends Factory
         'Potato Sack',
     ];
 
+    protected $corgiImages = [
+        'https://images.unsplash.com/photo-1644931900689-f56386afd2cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Y29yZ2l8fHx8fHwxNjU5NjYyODMw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
+        'https://corgicare.com/wp-content/uploads/corgi-puppies.jpg',
+        'https://images2.minutemediacdn.com/image/upload/c_crop,w_6960,h_3915,x_0,y_521/c_fill,w_1440,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/mentalfloss/01g05dr5ywhn47egkrkd.jpg',
+        'https://news.virginia.edu/sites/default/files/Header_corgicrown_EE.jpg',
+        'https://image.shutterstock.com/image-photo/corgi-dog-pembroke-welsh-walking-260nw-1676506852.jpg',
+        'https://mymodernmet.com/wp/wp-content/uploads/2020/08/welsh-corgi-facts-thumbnail-3.jpg',
+        'https://media-be.chewy.com/wp-content/uploads/2018/03/05113729/corgi-sploot-1024x548.jpg',
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -35,7 +45,7 @@ class CardFactory extends Factory
         return [
             'user_id' => null,
             'name' => Arr::random($this->corgiNames),
-            'cover_image' => 'https://via.placeholder.com/500',
+            'cover_image' => Arr::random($this->corgiImages),
             'description' => null,
             'status' => CardStatus::Normal,
             'cuteness' => 0,

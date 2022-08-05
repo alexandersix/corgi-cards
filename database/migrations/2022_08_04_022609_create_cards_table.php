@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->nullable();
             $table->string('name');
-            $table->string('cover_image');
+            $table->text('cover_image');
             $table->text('description')->nullable();
             $table->string('status')->default('normal');
             $table->unsignedInteger('cuteness')->default(0);

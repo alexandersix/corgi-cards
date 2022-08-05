@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\CardController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [CardController::class, 'index'])->name('dashboard');
+    Route::get('/cards/{card}', [CardController::class, 'show'])->name('card.show');
+
+    Route::get('/auction', [AuctionController::class, 'index'])->name('auction.index');
+    Route::get('/auction/{card}', [AuctionController::class, 'create'])->name('auction.create');
 });
 
 require __DIR__.'/auth.php';
