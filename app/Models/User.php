@@ -66,6 +66,6 @@ class User extends Authenticatable
      */
     public function getDisplayCurrencyAttribute(): string
     {
-        return (string) round($this->currency / 100);
+        return (string) round($this->currency / 100, 2);
     }
 }
