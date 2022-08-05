@@ -14,10 +14,11 @@ class Auction extends Model
         'card_id',
         'seller_id',
         'buyer_id',
-        'starting_bid',
+        'current_bid',
         'buyout_price',
         'selling_price',
         'sold_at',
+        'ends_at'
     ];
 
     public function buyer(): BelongsTo

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(Card::class);
             $table->foreignIdFor(User::class, 'seller_id');
             $table->foreignIdFor(User::class, 'buyer_id')->nullable();
-            $table->unsignedInteger('starting_bid')->default(0);
+            $table->unsignedInteger('current_bid')->default(0);
             $table->unsignedInteger('buyout_price')->nullable();
             $table->unsignedInteger('selling_price')->nullable();
             $table->dateTime('sold_at')->nullable();
