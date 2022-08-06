@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuctionController;
-use App\Http\Controllers\CardController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,19 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [CardController::class, 'index'])->name('dashboard');
-    Route::get('/cards/{card}', [CardController::class, 'show'])->name('card.show');
-
-    Route::get('/auction', [AuctionController::class, 'index'])->name('auction.index');
-    Route::get('/auction/{card}', [AuctionController::class, 'create'])->name('auction.create');
-    Route::post('/auction', [AuctionController::class, 'store'])->name('auction.store');
-    Route::get('/auction/{auction}/create-bid', [AuctionController::class, 'createBid'])->name('auction.create-bid');
-    Route::post('/auction/{auction}/place-bid', [AuctionController::class, 'storeBid'])->name('auction.place-bid');
-    Route::post('/auction/{auction}/buyout', [AuctionController::class, 'storeBuyout'])->name('auction.buyout');
-});
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
