@@ -1,18 +1,24 @@
 import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
-import { Head, Link, useForm } from "@inertiajs/inertia-react";
+import { Head, Link, useForm, useRemember } from "@inertiajs/inertia-react";
 import Label from "@/Components/Label";
 import Input from "@/Components/Input";
 import Button from "@/Components/Button";
 
 export default function Create({ auth, errors, card }) {
-    const { data, setData, post, processing, formErrors } = useForm({
-        card_id: card.id,
-        seller_id: card.user_id,
-        current_bid: 0,
-        buyout_price: 0,
-        ends_at: '',
-    });
+    // Save local state to the browser history with useRemember
+    // const [formState, setFormState] = useRemember();
+
+    const { data, setData, post, processing, formErrors } = useForm(
+        "Auction/Create",
+        {
+            card_id: card.id,
+            seller_id: card.user_id,
+            current_bid: 0,
+            buyout_price: 0,
+            ends_at: "",
+        }
+    );
 
     function onHandleChange(event) {
         setData(
@@ -25,7 +31,7 @@ export default function Create({ auth, errors, card }) {
 
     function submit(event) {
         event.preventDefault();
-        post(route('auction.store'));
+        post(route("auction.store"));
     }
 
     return (
@@ -83,16 +89,40 @@ export default function Create({ auth, errors, card }) {
                         </div>
 
                         <form className="space-y-4" onSubmit={submit}>
-                            <Label forInput="current_bid" value="Starting Bid" />
-                            <Input type="text" name="current_bid" value={data.current_bid} isFocused={true} handleChange={onHandleChange} />
+                            <Label
+                                forInput="current_bid"
+                                value="Starting Bid"
+                            />
+                            <Input
+                                type="text"
+                                name="current_bid"
+                                value={data.current_bid}
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                            />
 
-                            <Label forInput="buyout_price" value="Buyout Price" />
-                            <Input type="text" name="buyout_price" value={data.buyout_price} handleChange={onHandleChange} />
+                            <Label
+                                forInput="buyout_price"
+                                value="Buyout Price"
+                            />
+                            <Input
+                                type="text"
+                                name="buyout_price"
+                                value={data.buyout_price}
+                                handleChange={onHandleChange}
+                            />
 
                             <Label forInput="ends_at" value="Buyout Price" />
-                            <Input type="datetime-local" name="ends_at" value={data.ends_at} handleChange={onHandleChange} />
-                            
-                            <Button processing={processing}>Start Auction</Button>
+                            <Input
+                                type="datetime-local"
+                                name="ends_at"
+                                value={data.ends_at}
+                                handleChange={onHandleChange}
+                            />
+
+                            <Button processing={processing}>
+                                Start Auction
+                            </Button>
                         </form>
                     </div>
                 </div>
