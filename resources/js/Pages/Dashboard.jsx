@@ -1,8 +1,9 @@
 import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link } from "@inertiajs/inertia-react";
+import { BaseLayout } from "@/Layouts/BaseLayout";
 
-export default function Dashboard(props) {
+const Dashboard = (props) =>  {
     return (
         <Authenticated
             auth={props.auth}
@@ -88,3 +89,7 @@ export default function Dashboard(props) {
         </Authenticated>
     );
 }
+
+Dashboard.layout = page => <BaseLayout children={page} />
+
+export default Dashboard;

@@ -1,8 +1,9 @@
 import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link } from "@inertiajs/inertia-react";
+import { BaseLayout } from "@/Layouts/BaseLayout";
 
-export default function Create({ auth, errors, auctions }) {
+const Create = ({ auth, errors, auctions }) =>  {
     return (
         <Authenticated
             auth={auth}
@@ -115,3 +116,7 @@ export default function Create({ auth, errors, auctions }) {
         </Authenticated>
     );
 }
+
+Create.layout = page => <BaseLayout children={page} />
+
+export default Create;
