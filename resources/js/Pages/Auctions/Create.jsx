@@ -1,13 +1,37 @@
 import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head, Link, useForm } from "@inertiajs/inertia-react";
+import Label from "@/Components/Label";
+import Input from "@/Components/Input";
+import Button from "@/Components/Button";
 
-export default function Create(props) {
-    const card = props.card;
+export default function Create({ auth, errors, card }) {
+    const { data, setData, post, processing, formErrors } = useForm({
+        card_id: card.id,
+        seller_id: card.user_id,
+        current_bid: 0,
+        buyout_price: 0,
+        ends_at: '',
+    });
+
+    function onHandleChange(event) {
+        setData(
+            event.target.name,
+            event.target.type === "checkbox"
+                ? event.target.checked
+                : event.target.value
+        );
+    }
+
+    function submit(event) {
+        event.preventDefault();
+        post(route('auction.store'));
+    }
+
     return (
         <Authenticated
-            auth={props.auth}
-            errors={props.errors}
+            auth={auth}
+            errors={errors}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Create Auction
@@ -58,31 +82,18 @@ export default function Create(props) {
                             </div>
                         </div>
 
-                        {/* <form className="space-y-4" method="POST" action="{{ route('auction.store') }}"> */}
-                        {/**/}
-                        {/*     <input hidden id="card_id" name="card_id" value="{{$card->id}}" /> */}
-                        {/*     <input hidden id="seller_id" name="seller_id" value="{{$card->user_id}}" /> */}
-                        {/**/}
-                        {/*     <div> */}
-                        {/*         <x-label for="current_bid" value="Starting Bid" /> */}
-                        {/**/}
-                        {/*         <x-input id="current_bid" className="block mt-1 w-full" type="text" name="current_bid" :value="old('current_bid')" required autofocus /> */}
-                        {/*     </div> */}
-                        {/**/}
-                        {/*     <div> */}
-                        {/*         <x-label for="buyout_price" value="Buyout Price" /> */}
-                        {/**/}
-                        {/*         <x-input id="buyout_price" className="block mt-1 w-full" type="text" name="buyout_price" :value="old('buyout_price')" /> */}
-                        {/*     </div> */}
-                        {/**/}
-                        {/*     <div> */}
-                        {/*         <x-label for="ends_at" value="Auction Ends At" /> */}
-                        {/**/}
-                        {/*         <x-input id="ends_at" className="block mt-1 w-full" type="datetime-local" name="ends_at" :value="old('ends_at')" /> */}
-                        {/*     </div> */}
-                        {/**/}
-                        {/*     <x-button>Start Auction</x-button> */}
-                        {/* </form> */}
+                        <form className="space-y-4" onSubmit={submit}>
+                            <Label forInput="current_bid" value="Starting Bid" />
+                            <Input type="text" name="current_bid" value={data.current_bid} isFocused={true} handleChange={onHandleChange} />
+
+                            <Label forInput="buyout_price" value="Buyout Price" />
+                            <Input type="text" name="buyout_price" value={data.buyout_price} handleChange={onHandleChange} />
+
+                            <Label forInput="ends_at" value="Buyout Price" />
+                            <Input type="datetime-local" name="ends_at" value={data.ends_at} handleChange={onHandleChange} />
+                            
+                            <Button processing={processing}>Start Auction</Button>
+                        </form>
                     </div>
                 </div>
             </div>
