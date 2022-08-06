@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/auction', [AuctionController::class, 'index'])->name('auction.index');
     Route::get('/auction/{card}', [AuctionController::class, 'create'])->name('auction.create');
     Route::post('/auction', [AuctionController::class, 'store'])->name('auction.store');
+    Route::get('/auction/{auction}/create-bid', [AuctionController::class, 'createBid'])->name('auction.create-bid');
+    Route::post('/auction/{auction}/place-bid', [AuctionController::class, 'storeBid'])->name('auction.place-bid');
 });
 
 require __DIR__.'/auth.php';

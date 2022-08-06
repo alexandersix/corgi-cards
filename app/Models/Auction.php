@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -54,5 +55,10 @@ class Auction extends Model
     public function getDisplaySellingPriceAttribute(): string
     {
         return (string) round($this->selling_price / 100, 2);
+    }
+
+    public function hasEnded(): bool
+    {
+        return isset($this->sold_at) || Carbon::now()->gt($this->ends_at);
     }
 }

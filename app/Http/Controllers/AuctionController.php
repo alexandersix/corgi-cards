@@ -59,6 +59,31 @@ class AuctionController extends Controller
 
         return redirect(route('auction.index'))->with('success', 'Auction started successfully.');
     }
+        
+    public function createBid(Auction $auction)
+    {
+        return view('auction.create-bid', [
+            'auction' => $auction,
+        ]);
+    }
+
+    public function storeBid(Request $request, Auction $auction)
+    {
+        if ($auction->hasEnded()) {
+            return redirect(route('auction.index'))->with('error', 'Sorry, that auction has already ended!');
+        }
+
+        $convertedProposedBid = $request->input('proposed_bid') * 100;
+
+        if ($convertedProposedBid <= $auction->current_bid) {
+            return back()->with('error', 'Sorry, your bid is less than the current bid for this auction');
+        }
+
+        $auction->current_bid = $convertedProposedBid;
+        $auction->save();
+
+        return back()->with('success', 'Your bid has been accepted!');
+    }
 
     /**
      * Display the specified resource.
