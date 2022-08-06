@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Auction;
 use App\Models\Card;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
@@ -16,7 +18,12 @@ class AuctionController extends Controller
     public function index()
     {
         return view('auction.index', [
-            'auctions' => Auction::with(['buyer', 'card', 'seller'])->orderByDesc('created_at')->paginate(6),
+            'auctions' => Auction::query()
+                ->with(['buyer', 'card', 'seller'])
+                ->whereNull('sold_at')
+                ->where('ends_at', '>', Carbon::now())
+                ->orderByDesc('created_at')
+                ->paginate(6),
         ]);
     }
 
@@ -83,6 +90,36 @@ class AuctionController extends Controller
         $auction->save();
 
         return back()->with('success', 'Your bid has been accepted!');
+    }
+
+    public function storeBuyout(Auction $auction)
+    {
+        if ($auction->hasEnded()) {
+            return redirect(route('auction.index'))->with('error', 'Sorry, that auction has already ended!');
+        }
+
+        if (auth()->user()->currency < $auction->buyout_price) {
+            return back()->with('error', 'Sorry, you don\'t have enough money for that transaction');
+        }
+
+        $auction->current_bid = $auction->buyout_price;
+        $auction->sold_at = Carbon::now();
+        $auction->save();
+
+        $purchasedCard = $auction->card;
+        $purchasedCard->user_id = auth()->id();
+        $purchasedCard->save();
+
+        /** @var User $buyer */
+        $buyer = auth()->user();
+        $buyer->currency = $buyer->currency - $auction->buyout_price;
+        $buyer->save();
+
+        $seller = $auction->seller;
+        $seller->currency = $seller->currency + $auction->buyout_price;
+        $seller->save();
+
+        return redirect(route('dashboard'))->with('success', 'You won the auction!');
     }
 
     /**

@@ -43,6 +43,12 @@
                         <x-button>Place Bid</x-button>
 
                     </form>
+
+                    <form method="POST" action="{{ route('auction.buyout', ['auction' => $auction]) }}">
+                        @csrf
+
+                        <x-button>Buy Now</x-button>
+                    </form>
                 </div>
             </div>
         </div>
