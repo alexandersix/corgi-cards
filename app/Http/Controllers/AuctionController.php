@@ -7,6 +7,7 @@ use App\Models\Card;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AuctionController extends Controller
 {
@@ -17,7 +18,7 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        return view('auction.index', [
+        return Inertia::render('Auctions/Index', [
             'auctions' => Auction::query()
                 ->with(['buyer', 'card', 'seller'])
                 ->whereNull('sold_at')
@@ -34,7 +35,7 @@ class AuctionController extends Controller
      */
     public function create(Card $card)
     {
-        return view('auction.create', [
+        return Inertia::render('Auctions/Create', [
             'card' => $card,
         ]);
     }

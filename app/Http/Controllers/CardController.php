@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use Illuminate\Database\Eloquent\Builder;
+use Inertia\Inertia;
 
 class CardController extends Controller
 {
@@ -21,7 +22,7 @@ class CardController extends Controller
             })
             ->get();
 
-        return view('dashboard', [
+        return Inertia::render('Dashboard', [
             'cards' => $availableCards,
         ]);
     }
@@ -34,7 +35,7 @@ class CardController extends Controller
      */
     public function show(Card $card)
     {
-        return view('cards.show', [
+        return Inertia::render('Cards/Show', [
             'card' => $card,
         ]);
     }
