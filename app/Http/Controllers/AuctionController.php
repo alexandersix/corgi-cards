@@ -121,49 +121,4 @@ class AuctionController extends Controller
 
         return redirect(route('dashboard'))->with('success', 'You won the auction!');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Auction  $auction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Auction $auction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Auction  $auction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Auction $auction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Auction  $auction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Auction $auction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Auction  $auction
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Auction $auction)
-    {
-        //
-    }
 }
