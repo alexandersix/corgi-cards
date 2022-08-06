@@ -66,7 +66,7 @@ class AuctionController extends Controller
 
         return redirect(route('auction.index'))->with('success', 'Auction started successfully.');
     }
-        
+
     public function createBid(Auction $auction)
     {
         return view('auction.create-bid', [

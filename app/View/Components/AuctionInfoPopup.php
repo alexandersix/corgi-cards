@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 class AuctionInfoPopup extends Component
 {
     public Auction $myOngoingAuction;
+
     public string $timeRemaining;
 
     /**
