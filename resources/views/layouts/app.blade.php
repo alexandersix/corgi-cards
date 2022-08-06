@@ -39,6 +39,8 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+
+                <x-auction-info-popup />
             </main>
         </div>
     </body>
