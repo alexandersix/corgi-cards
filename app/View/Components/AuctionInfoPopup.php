@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class AuctionInfoPopup extends Component
 {
-    public Auction $myOngoingAuction;
+    public ?Auction $myOngoingAuction;
 
     public string $timeRemaining;
 
@@ -25,6 +25,11 @@ class AuctionInfoPopup extends Component
             ->whereNull('sold_at')
             ->where('ends_at', '>', Carbon::now())
             ->first();
+
+        if (is_null($this->myOngoingAuction)) {
+            $this->timeRemaining = '0';
+            return;
+        }
 
         $this->timeRemaining = $this->myOngoingAuction->ends_at
             ->from(
